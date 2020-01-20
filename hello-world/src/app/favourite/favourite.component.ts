@@ -10,7 +10,7 @@ export class FavouriteComponent implements OnInit {
   @Input() isFavourite: boolean;
   // @Input("is-favourite") isFavourite: boolean
 
-  @Output() change = new EventEmitter();//nazwa zdarzenia change MUSI ODPOWIADAĆ
+  @Output('change') change = new EventEmitter();//nazwa zdarzenia change MUSI ODPOWIADAĆ
   //nazwie zdarzenia z pliku html rodzica (app.component.html)
 
   constructor() { }
