@@ -11,4 +11,8 @@ export class AppComponent {
     "title": "Title",
     "isFavourite": true
   }
+
+  onFavouriteChanged() {
+    console.log("Favourite chagned");
+  }
 }

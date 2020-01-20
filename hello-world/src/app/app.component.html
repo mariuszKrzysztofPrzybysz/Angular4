@@ -1,1 +1,4 @@
-<app-favourite [isFavourite]="post.isFavourite"></app-favourite>
+<app-favourite
+  [isFavourite]="post.isFavourite"
+  (change)="onFavouriteChanged()"
+></app-favourite>
