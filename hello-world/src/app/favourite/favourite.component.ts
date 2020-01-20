@@ -20,7 +20,15 @@ export class FavouriteComponent implements OnInit {
 
   onClick() {
     this.isFavourite = !this.isFavourite;
-    this.change.emit();
-  }
 
+    this.change.emit({
+      method: "My favourite component",
+      result: this.isFavourite
+    } as IFavouriteChangedEventArgs);
+  }
+}
+
+export interface IFavouriteChangedEventArgs {
+  method: string,
+  result: boolean
 }
