@@ -13,6 +13,17 @@ export class ContactFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  contactMethods = [
+    {
+      id: 1,
+      name: 'Email'
+    },
+    {
+      id: 2,
+      name: 'Phone'
+    },
+  ];
+
   displayNgModelDetails(data: NgModel) {
     console.log(data);
   }
