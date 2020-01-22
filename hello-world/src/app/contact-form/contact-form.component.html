@@ -1,7 +1,11 @@
 <form>
   <div class="form-group">
-    <label for="fistName">First name</label>
-    <input ngModel name="firstName" id="fistName" type="text" class="form-control">
+    <label for="firstName">First name</label>
+    <input required ngModel name="firstName" id="fistName" #firstName="ngModel" type="text" class="form-control">
+    <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid"
+      (click)="displayNgModelDetails(firstName)">
+      First name is required
+    </div>
   </div>
   <div class="form-group">
     <label for="comment">Comment</label>
