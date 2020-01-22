@@ -6,11 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  courses = [
-    { id: 1, name: "course1" },
-    { id: 2, name: "course2" },
-    { id: 3, name: "course3" },
-  ];
+  courses = [];
   viewMode = 'map';//or list
 
   onAdd() {
@@ -24,5 +20,16 @@ export class AppComponent {
 
   onChange(cource): void {
     cource.name = "UPDATED";
+  }
+
+  loadCourses(): void {
+    this.courses = [
+      { id: 1, name: "course1" },
+      { id: 2, name: "course2" },
+      { id: 3, name: "course3" },
+    ];
+  }
+  trackCourse(index, course) {
+    return course ? course.id : undefined;
   }
 }
