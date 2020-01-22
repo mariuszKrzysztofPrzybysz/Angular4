@@ -11,7 +11,7 @@ export class InputFormatDirective {
   //   console.log('onFocus');
   // }
 
-  @Input('format') format;
+  @Input('appInputFormat') format;
   @HostListener('blur') onBlur() {
     let value: string = this._el.nativeElement.value;
 
