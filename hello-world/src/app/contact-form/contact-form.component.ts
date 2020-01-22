@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'contact-form',
@@ -15,5 +15,17 @@ export class ContactFormComponent implements OnInit {
 
   displayNgModelDetails(data: NgModel) {
     console.log(data);
+  }
+
+  onSubmit(contactForm: NgForm) {
+    console.log(contactForm);
+
+    console.log(contactForm.value);//could be used to send via HTTP
+    /**
+     * {
+     *  firstName: "Jan",
+     *  comment: "Bye!"
+     * }
+     */
   }
 }
