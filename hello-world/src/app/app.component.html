@@ -33,3 +33,8 @@
   'glyphicon-star': isSelected,
   'glyphicon-star-empty': !isSelected
   }">sss</span>
+
+<button [ngStyle]="{
+  'backgroundColor': canSave? blue:gray,
+  'color': canSave? white:black
+}" (click)="toggleCanSave()">Save</button>

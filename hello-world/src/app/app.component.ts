@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  canSave = true;
   isSelected = true;
   courses = [];
   viewMode = 'map';//or list
@@ -32,5 +33,10 @@ export class AppComponent {
   }
   trackCourse(index, course) {
     return course ? course.id : undefined;
+  }
+
+  toggleCanSave() {
+    console.log(this.canSave);
+    this.canSave = !this.canSave;
   }
 }
