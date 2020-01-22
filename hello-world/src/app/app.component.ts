@@ -10,6 +10,13 @@ export class AppComponent {
   isSelected = true;
   courses = [];
   viewMode = 'map';//or list
+  task = {
+    title: 'Review applications',
+    assignee: {
+      name: 'John Smith',
+      address: null
+    }
+  }
 
   onAdd() {
     this.courses.push({ id: 4, name: "course4" });

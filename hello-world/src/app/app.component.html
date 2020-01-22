@@ -38,3 +38,6 @@
   'backgroundColor': canSave? blue:gray,
   'color': canSave? white:black
 }" (click)="toggleCanSave()">Save</button>
+
+<span>{{task.assignee.name}}</span>
+<span>{{task.assignee.address?.street}}</span>
