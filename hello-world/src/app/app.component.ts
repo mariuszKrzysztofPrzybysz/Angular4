@@ -12,4 +12,17 @@ export class AppComponent {
     { id: 3, name: "course3" },
   ];
   viewMode = 'map';//or list
+
+  onAdd() {
+    this.courses.push({ id: 4, name: "course4" });
+  }
+
+  onRemove(cource): void {
+    let index = this.courses.indexOf(cource);
+    this.courses.splice(index, 1);
+  }
+
+  onChange(cource): void {
+    cource.name = "UPDATED";
+  }
 }
