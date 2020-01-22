@@ -18,3 +18,9 @@
   <div *ngSwitchCase="'list'">List View Content</div>
   <div *ngSwitchDefault>Otherwise</div>
 </div>
+
+<ul>
+  <li *ngFor="let course of courses; index as i">
+    {{i}} - {{course.name}}
+  </li>
+</ul>
