@@ -23,7 +23,9 @@ export class ContactFormComponent implements OnInit {
     console.log(contactForm.value);//could be used to send via HTTP
     /**
      * {
-     *  firstName: "Jan",
+     *  contact: {
+     *    firstName: "Jan"
+     *  },
      *  comment: "Bye!"
      * }
      */
