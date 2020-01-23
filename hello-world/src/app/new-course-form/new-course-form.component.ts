@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormArray, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-course-form',
@@ -8,14 +8,30 @@ import { FormGroup, FormArray, FormControl } from '@angular/forms';
 })
 export class NewCourseFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(_formBuilder: FormBuilder) {
+    this.form = _formBuilder.group({
+      name: ['', Validators.required],//new FormControl('', Validators.required)
+      contact: _formBuilder.group({//new FormGroup({...})
+        email: [],
+        phone: []
+      }),
+      topics: _formBuilder.array([])//new FormArray([])
+    })
+
+  }
 
   ngOnInit() {
   }
 
-  form = new FormGroup({
-    topics: new FormArray([])
-  });
+  form: FormGroup;
+  // form = new FormGroup({
+  //   name: new FormControl('', Validators.required),
+  //   contact: new FormGroup({
+  //     email: new FormControl(),
+  //     phone: new FormControl()
+  //   }),
+  //   topics: new FormArray([])
+  // });
 
   addTopic(topic: HTMLInputElement) {
     this.topics.push(new FormControl(topic.value));
