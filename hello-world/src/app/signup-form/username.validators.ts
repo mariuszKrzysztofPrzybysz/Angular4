@@ -11,15 +11,19 @@ export class UsernameValidators {
     return null;
   }
 
-  static shouldBeUnique(control: AbstractControl): ValidationErrors | null {
-    setTimeout(() => {
-      if (control.value === 'mariusz') {
-        return {
-          shouldBeUnique: true
-        };
-      }
+  static shouldBeUnique(control: AbstractControl): Promise<ValidationErrors | null> {
 
-      return null;
-    }, 2000);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'mariusz') {
+          resolve({
+            shouldBeUnique: true
+          });
+        }
+        else {
+          resolve(null);
+        }
+      }, 2000);
+    });
   }
 }
