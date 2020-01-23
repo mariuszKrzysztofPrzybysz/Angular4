@@ -26,4 +26,11 @@ export class SignupFormComponent {
   get password(): AbstractControl {
     return this.form.get('password');
   }
+
+  login() {
+    console.log(this.form);
+    this.form.setErrors({
+      invalidLogin: true
+    })
+  }
 }
