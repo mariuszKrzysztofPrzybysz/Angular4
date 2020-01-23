@@ -8,7 +8,7 @@ import { FormGroup, FormArray, FormControl, FormBuilder, Validators } from '@ang
 })
 export class NewCourseFormComponent implements OnInit {
 
-  constructor(_formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder) {
     this.form = _formBuilder.group({
       name: ['', Validators.required],//new FormControl('', Validators.required)
       contact: _formBuilder.group({//new FormGroup({...})
