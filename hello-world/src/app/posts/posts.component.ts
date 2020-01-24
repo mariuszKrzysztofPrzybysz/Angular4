@@ -31,4 +31,14 @@ export class PostsComponent implements OnInit {
           this.posts.splice(0, 0, post);
         });
   }
+
+  updatePost(post: any): void {
+    let id = post.id;
+    this._http.patch(`${this._url}/${id}`, JSON.stringify({ isRead: true }))
+      .subscribe(
+        response => {
+          console.log(response.json());
+        });
+    // this._http.put(this._url,JSON.stringify(post))...
+  }
 }
