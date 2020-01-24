@@ -20,9 +20,14 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this._postService.getPosts()
-      .subscribe(response => {
-        this.posts = response.json();
-      });
+      .subscribe(
+        response => {
+          this.posts = response.json();
+        },
+        error => {
+          alert('An unexpected error occured');
+          console.log(error);
+        });
   }
 
   createPost(input: HTMLInputElement): void {
@@ -33,6 +38,10 @@ export class PostsComponent implements OnInit {
         response => {
           post['id'] = response.json().id;
           this.posts.splice(0, 0, post);
+        },
+        error => {
+          alert('An unexpected error occured');
+          console.log(error);
         });
   }
 
@@ -42,6 +51,10 @@ export class PostsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response.json());
+        },
+        error => {
+          alert('An unexpected error occured');
+          console.log(error);
         });
     // this._http.put(this._url,JSON.stringify(post))...
   }
@@ -53,6 +66,10 @@ export class PostsComponent implements OnInit {
         response => {
           let index = this.posts.indexOf(post);
           this.posts.splice(index, 1);
+        },
+        error => {
+          alert('An unexpected error occured');
+          console.log(error);
         });
   }
 }
