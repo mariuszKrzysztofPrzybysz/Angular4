@@ -6,19 +6,25 @@ import { Http } from '@angular/http';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
+
+/**
+ * https://angular.io/guide/lifecycle-hooks
+ *
+ * Lifecycle Hooks: OnInit, OnChanges, DoCheck, AfterContentInit, ...
+ */
 export class PostsComponent implements OnInit {
   posts: any[];
   private _url: string = 'https://jsonplaceholder.typicode.com/posts';
 
   constructor(private _http: Http) {
-    _http.get(this._url)
+  }
+
+  ngOnInit() {
+    this._http.get(this._url)
       .subscribe(
         response => {
           this.posts = response.json();
         });
-  }
-
-  ngOnInit() {
   }
 
   createPost(input: HTMLInputElement): void {
