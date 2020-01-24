@@ -26,10 +26,6 @@ export class PostsComponent implements OnInit {
       .subscribe(
         response => {
           this.posts = response.json();
-        },
-        error => {
-          alert('An unexpected error occured');
-          console.log(error);
         });
   }
 
@@ -48,8 +44,7 @@ export class PostsComponent implements OnInit {
             alert('Body cannot be ampty');
           }
           else {
-            alert('An unexpected error occured');
-            console.log(error.originalError);
+            throw error;
           }
         });
   }
@@ -70,9 +65,7 @@ export class PostsComponent implements OnInit {
               alert('This post has not been found.');
               break;
             default:
-              alert('An unexpected error occured');
-              console.log(error);
-              break;
+              throw error;
           }
         });
     // this._http.put(this._url,JSON.stringify(post))...
@@ -91,8 +84,7 @@ export class PostsComponent implements OnInit {
             alert('This post has already been deleted');
           }
           else {
-            alert('An unexpected error occured');
-            console.log(error);
+            throw error;
           }
         });
   }
