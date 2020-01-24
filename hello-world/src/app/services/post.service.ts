@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { error } from 'protractor';
-import { Observable } from 'rxjs';
 import { AppError } from '../common/errors/app-error';
 import { NotFoundError } from '../common/errors/not-found-error';
 import { BadInputError } from '../common/errors/bad-input-error';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +23,10 @@ export class PostService {
     return this._http.post(this._url, JSON.stringify(post))
       .pipe(catchError((error: Response) => {
         if (error.status === 400) {
-          return Observable.throw(new BadInputError());
+          return throwError(new BadInputError());
         }
 
-        return Observable.throw(new AppError(error));
+        return throwError(new AppError(error));
       }));
   }
 
@@ -35,11 +35,11 @@ export class PostService {
       .pipe(catchError((error: Response) => {
         switch (error.status) {
           case 400:
-            return Observable.throw(new BadInputError());
+            return throwError(new BadInputError());
           case 404:
-            return Observable.throw(new NotFoundError());
+            return throwError(new NotFoundError());
           default:
-            return Observable.throw(new AppError(error));
+            return throwError(new AppError(error));
         }
       }));
   }
@@ -48,10 +48,10 @@ export class PostService {
     return this._http.delete(`${this._url}/${id}`)
       .pipe(catchError((error: Response) => {
         if (error.status === 404) {
-          return Observable.throw(new NotFoundError());
+          return throwError(new NotFoundError());
         }
 
-        return Observable.throw(new AppError(error));
+        return throwError(new AppError(error));
       }));
   }
 }

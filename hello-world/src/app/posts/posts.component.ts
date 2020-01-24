@@ -45,10 +45,11 @@ export class PostsComponent implements OnInit {
         (error: AppError) => {
           if (error instanceof BadInputError) {
             // this.form.setErrors(error.json());
+            alert('Body cannot be ampty');
           }
           else {
             alert('An unexpected error occured');
-            console.log(error);
+            console.log(error.originalError);
           }
         });
   }
