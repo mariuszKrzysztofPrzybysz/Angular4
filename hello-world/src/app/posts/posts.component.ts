@@ -28,16 +28,22 @@ export class PostsComponent implements OnInit {
   }
 
   createPost(input: HTMLInputElement): void {
+    //Optimistic Create
     let newPost: any = { title: input.value };
+    this.posts.splice(0, 0, newPost);
+
     input.value = '';
 
     this._postService.create(newPost)
       .subscribe(
         createdPost => {
           newPost['id'] = createdPost.id;
-          this.posts.splice(0, 0, newPost);
+
         },
         (error: AppError) => {
+          //Rollback create
+          this.posts.splice(0, 1);
+
           if (error instanceof BadInputError) {
             // this.form.setErrors(error.json());
             alert('Body cannot be ampty');
@@ -72,14 +78,19 @@ export class PostsComponent implements OnInit {
   }
 
   deletePost(post: any): void {
+    //Optimistic delete
     let id = post.id;
+
+    let index = this.posts.indexOf(post);
+    this.posts.splice(index, 1);
+
     this._postService.delete(id)
       .subscribe(
-        () => {
-          let index = this.posts.indexOf(post);
-          this.posts.splice(index, 1);
-        },
+        null,
         (error: Response) => {
+          //Rollback delete
+          this.posts.splice(index, 0, post);
+
           if (error instanceof NotFoundError) {
             alert('This post has already been deleted');
           }
