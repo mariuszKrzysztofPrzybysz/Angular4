@@ -16,42 +16,34 @@ export class PostService {
   constructor(private _http: Http) { }
 
   getPosts() {
-    return this._http.get(this._url);
+    return this._http.get(this._url)
+      .pipe(catchError(this.handleError));
   }
 
   createPost(post) {
     return this._http.post(this._url, JSON.stringify(post))
-      .pipe(catchError((error: Response) => {
-        if (error.status === 400) {
-          return throwError(new BadInputError());
-        }
-
-        return throwError(new AppError(error));
-      }));
+      .pipe(catchError(this.handleError));
   }
 
   updatePost(id) {
     return this._http.patch(`${this._url}/${id}`, JSON.stringify({ isRead: true }))
-      .pipe(catchError((error: Response) => {
-        switch (error.status) {
-          case 400:
-            return throwError(new BadInputError());
-          case 404:
-            return throwError(new NotFoundError());
-          default:
-            return throwError(new AppError(error));
-        }
-      }));
+      .pipe(catchError(this.handleError));
   }
 
   deletePost(id) {
     return this._http.delete(`${this._url}/${id}`)
-      .pipe(catchError((error: Response) => {
-        if (error.status === 404) {
-          return throwError(new NotFoundError());
-        }
+      .pipe(catchError(this.handleError));
+  }
 
+
+  private handleError(error: Response) {
+    switch (error.status) {
+      case 400:
+        return throwError(new BadInputError());
+      case 404:
+        return throwError(new NotFoundError());
+      default:
         return throwError(new AppError(error));
-      }));
+    }
   }
 }
