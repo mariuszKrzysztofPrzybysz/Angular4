@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostService } from './services/post.service';
 import { AppErrorHandler } from './common/errors/app-error-handler';
+import { UserFollowersComponent } from './components/github/user-followers/user-followers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent
+    PostsComponent,
+    UserFollowersComponent
   ],
   imports: [
     BrowserModule,

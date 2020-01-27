@@ -1,0 +1,18 @@
+<table class="table table-hover">
+  <caption>GitHub user followers</caption>
+  <thead>
+    <tr>
+      <th scope="col">Picture</th>
+      <th scope="col">Login</th>
+      <th scope="col">Url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let follower of userFollowers">
+      <th scope="row"><img [src]="follower.avatar_url" class="rounded-circle" /></th>
+      <td>{{follower.login}}</td>
+      <td><a [href]="follower.html_url">{{follower.html_url}}</a></td>
+    </tr>
+  </tbody>
+</table>
+<hr>
