@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../services/post.service';
+import { NotFoundError } from '../common/errors/not-found-error';
+import { BadInputError } from '../common/errors/bad-input-error';
+import { AppError } from '../common/errors/app-error';
 
 @Component({
   selector: 'app-posts',
@@ -19,68 +22,82 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._postService.getPosts()
+    this._postService.getAll()
       .subscribe(
-        response => {
-          this.posts = response.json();
-        },
-        (error: Response) => {
-          alert('An unexpected error occured.');
-          console.log(error);
-        });
+        posts => this.posts = posts);
   }
 
   createPost(input: HTMLInputElement): void {
-    let post = { title: input.value };
+    //Optimistic Create
+    let newPost: any = { title: input.value };
+    this.posts.splice(0, 0, newPost);
+
     input.value = '';
-    this._postService.createPost(post)
+
+    this._postService.create(newPost)
       .subscribe(
-        response => {
-          post['id'] = response.json().id;
-          this.posts.splice(0, 0, post);
+
+        createdPost => {
+          newPost['id'] = createdPost.id;
+
         },
-        (error: Response) => {
-          if (error.status === 400) {
-            //this.form.SetErrors(error.json());
+        (error: AppError) => {
+          //Rollback create
+          this.posts.splice(0, 1);
+
+          if (error instanceof BadInputError) {
+            // this.form.setErrors(error.json());
+            alert('Body cannot be ampty');
           }
           else {
-            alert('An unexpected error occured.');
-            console.log(error);
+            throw error;
           }
         });
   }
 
   updatePost(post: any): void {
     let id = post.id;
-    this._postService.updatePost(id)
+    let title: any = { title: post.title };
+    this._postService.update(id, title)
       .subscribe(
-        response => {
-          console.log(response.json());
+        updatedPost => {
+          console.log(updatedPost);
         },
         (error: Response) => {
-          alert('An unexpected error occured.');
-          console.log(error);
+          switch (error.constructor) {
+            case BadInputError:
+              alert('This post cannot be updated.');
+              break;
+            case NotFoundError:
+              alert('This post has not been found.');
+              break;
+            default:
+              throw error;
+          }
         });
     // this._http.put(this._url,JSON.stringify(post))...
   }
 
   deletePost(post: any): void {
+    //Optimistic delete
     let id = post.id;
-    this._postService.deletePost(id)
+
+    let index = this.posts.indexOf(post);
+    this.posts.splice(index, 1);
+
+    this._postService.delete(id)
       .subscribe(
-        response => {
-          let index = this.posts.indexOf(post);
-          this.posts.splice(index, 1);
-        },
+        null,
         (error: Response) => {
-          if (error.status === 404) {
-            alert('This post has already been deleted')
+          //Rollback delete
+          this.posts.splice(index, 0, post);
+
+          if (error instanceof NotFoundError) {
+            alert('This post has already been deleted');
           }
           else {
-            alert('An unexpected error occured.');
-            console.log(error);
+            throw error;
           }
-
         });
   }
 }
