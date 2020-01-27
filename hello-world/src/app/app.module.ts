@@ -35,8 +35,8 @@ import { AuthorsService } from './services/authors.service';
 
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
+      { path: 'followers/:username', component: GithubProfileComponent },
       { path: 'followers', component: GithubFollowersComponent },
-      { path: 'profile/:username', component: GithubProfileComponent },
       { path: 'posts', component: PostsComponent },
       { path: '**', component: NotFoundComponent },
     ])
