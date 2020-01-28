@@ -5,7 +5,7 @@
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
       <li class="nav-item" routerLinkActive="active current">
-        <a class="nav-link" routerLink="/followers">Followers</a>
+        <a class="nav-link" routerLink="/followers" [queryParams]="{page: 1, order: 'newest'}">Followers</a>
       </li>
       <li class="nav-item" routerLinkActive="active current">
         <a class="nav-link" routerLink="/posts">Posts</a>
